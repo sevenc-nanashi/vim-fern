@@ -17,7 +17,7 @@ endfunction
 
 function! fern#scheme#file#denops_provider#get_parent(node, ...) abort
   return s:request('parent', {'path': a:node._path})
-        \ .then({ v -> s:node(v) })
+        \.then({ v -> s:node(v) })
 endfunction
 
 function! fern#scheme#file#denops_provider#get_children(node, ...) abort
@@ -25,7 +25,7 @@ function! fern#scheme#file#denops_provider#get_children(node, ...) abort
     return s:Promise.reject(printf('no children exists for %s', a:node._path))
   endif
   return s:request('children', {'path': a:node._path})
-        \ .then({ vs -> map(vs, { _, v -> s:node(v) }) })
+        \.then({ vs -> map(vs, { _, v -> s:node(v) }) })
 endfunction
 
 function! s:request(operation, args) abort

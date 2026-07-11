@@ -1,0 +1,35 @@
+{
+  "version": "5",
+  "specifiers": {
+    "jsr:@denops/core@^8.0.1": "8.0.1",
+    "jsr:@denops/std@8": "8.2.0",
+    "jsr:@valibot/valibot@1": "1.4.2"
+  },
+  "jsr": {
+    "@denops/core@8.0.1": {
+      "integrity": "699c70b07b2347febb96972c857fb8325ad8efa99936a0a8c0bb2be82a8b8f32"
+    },
+    "@denops/std@8.2.0": {
+      "integrity": "6b473515c30a15b3ffe88accf11eabb7ed6210a1042311b563875bb10882f729",
+      "dependencies": [
+        "jsr:@denops/core"
+      ]
+    },
+    "@valibot/valibot@1.4.1": {
+      "integrity": "9be12a3f73f3fd00fa44ae189bc1bb3ab4d9088ec2e32a6ab370ae4fca29ee6e"
+    },
+    "@valibot/valibot@1.4.2": {
+      "integrity": "14f7fbb7474a8ade216224062d1e8b23cd17ecbb5176fc23595e846778c4725d"
+    }
+  },
+  "workspace": {
+    "members": {
+      "denops/fern": {
+        "dependencies": [
+          "jsr:@denops/std@8",
+          "jsr:@valibot/valibot@1"
+        ]
+      }
+    }
+  }
+}

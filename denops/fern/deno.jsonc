@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "@denops/std": "jsr:@denops/std@^8.0.0",
+    "valibot": "jsr:@valibot/valibot@^1.0.0"
+  }
+}

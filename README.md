@@ -67,10 +67,14 @@ asynchronous tree viewer written in pure Vim script.
 
 ## Installation
 
-vim-fern has no extra dependencies so use your favorite Vim plugin manager or
-see
+vim-fern has no required extra dependencies so use your favorite Vim plugin
+manager or see
 [How to install](https://github.com/lambdalisue/vim-fern/wiki#how-to-install)
 page for detail.
+
+If [denops.vim](https://github.com/vim-denops/denops.vim) and Deno are
+available, the file scheme automatically uses the Denops backend for file
+system operations. Without them, Fern uses its built-in Vim script backend.
 
 - If you use Neovim < 0.8, you **SHOULD** add
   [antoinemadec/FixCursorHold.nvim](https://github.com/antoinemadec/FixCursorHold.nvim)

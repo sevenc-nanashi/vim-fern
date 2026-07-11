@@ -1,0 +1,23 @@
+name: Denops
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Check formatting
+        run: deno fmt --check denops/fern/main.ts denops/fern/main_test.ts
+      - name: Type check
+        run: deno check denops/fern/main.ts denops/fern/main_test.ts
+      - name: Test
+        run: deno test --allow-read --allow-write --allow-run denops/fern/main_test.ts

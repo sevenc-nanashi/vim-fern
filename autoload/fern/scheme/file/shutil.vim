@@ -10,6 +10,9 @@ function! fern#scheme#file#shutil#open(path, ...) abort
 endfunction
 
 function! fern#scheme#file#shutil#mkfile(path, ...) abort
+  if fern#denops#available()
+    return fern#denops#request_promise('mkfile', {'path': a:path})
+  endif
   if filereadable(a:path) || isdirectory(a:path)
     return s:Promise.reject(printf("'%s' already exist", a:path))
   endif
@@ -19,6 +22,9 @@ function! fern#scheme#file#shutil#mkfile(path, ...) abort
 endfunction
 
 function! fern#scheme#file#shutil#mkdir(path, ...) abort
+  if fern#denops#available()
+    return fern#denops#request_promise('mkdir', {'path': a:path})
+  endif
   if filereadable(a:path) || isdirectory(a:path)
     return s:Promise.reject(printf("'%s' already exist", a:path))
   endif
@@ -43,6 +49,9 @@ function! fern#scheme#file#shutil#copy(src, dst, ...) abort
       endif
       return fern#scheme#file#shutil#copy(a:src, new_dst, token)
     endif
+  endif
+  if fern#denops#available()
+    return fern#denops#request_promise('copy', {'src': a:src, 'dst': a:dst})
   endif
   call mkdir(fnamemodify(a:dst, ':p:h'), 'p')
   if isdirectory(a:src)
@@ -74,6 +83,9 @@ function! fern#scheme#file#shutil#move(src, dst, ...) abort
       return fern#scheme#file#shutil#move(a:src, new_dst, token)
     endif
   endif
+  if fern#denops#available()
+    return fern#denops#request_promise('move', {'src': a:src, 'dst': a:dst})
+  endif
   call mkdir(fnamemodify(a:dst, ':p:h'), 'p')
   return s:File.move(a:src, a:dst, {
         \ 'token': token,
@@ -94,6 +106,9 @@ function! fern#scheme#file#shutil#trash(path, ...) abort
 endfunction
 
 function! fern#scheme#file#shutil#remove(path, ...) abort
+  if fern#denops#available()
+    return fern#denops#request_promise('remove', {'path': a:path})
+  endif
   return s:Promise.resolve()
         \.then({ -> delete(a:path, 'rf') })
 endfunction

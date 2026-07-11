@@ -1,5 +1,16 @@
 *fern.txt*			General purpose asynchronous tree explorer
 
+						*fern-denops*
+DENOPS BACKEND
+
+When denops.vim and Deno are available, the |file| scheme automatically uses
+Fern's Denops backend for file system operations. The backend is optional; if
+Denops is unavailable or fails to start, Fern uses the built-in Vim script
+implementation instead.
+
+Trash operations intentionally continue to use the existing Vim script/Vital
+implementation.
+
 Author:  Alisue <lambdalisue@hashnote.net>
 License: MIT license
 

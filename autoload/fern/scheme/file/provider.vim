@@ -16,6 +16,9 @@ let s:windows_drive_root = {
       \}
 
 function! fern#scheme#file#provider#new() abort
+  if fern#denops#available()
+    return fern#scheme#file#denops_provider#new()
+  endif
   return {
         \ 'get_root': funcref('s:provider_get_root'),
         \ 'get_parent' : funcref('s:provider_get_parent'),

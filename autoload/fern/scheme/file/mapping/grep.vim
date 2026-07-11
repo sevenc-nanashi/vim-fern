@@ -32,8 +32,17 @@ function! s:map_grep(helper) abort
   let efm = g:fern#scheme#file#mapping#grep#grepformat
   let title = printf('[fern] %s', join(map(copy(args), { _, v -> v =~# '\s' ? printf('"%s"', v) : v }), ' '))
   let token = a:helper.fern.source.token
-  return s:Process.start(args, { 'token': token })
-        \.then({ v -> v.stdout })
+  let use_denops = fern#denops#available()
+  let process = use_denops
+        \ ? fern#denops#request_promise('run', {
+        \     'args': args,
+        \     'cwd': getcwd(),
+        \   })
+        \ : s:Process.start(args, { 'token': token })
+  return process
+        \.then({ v -> use_denops
+        \       ? v.code is# 0 ? split(v.stdout, '\n', 1) : s:Promise.reject(v.stderr)
+        \       : v.stdout })
         \.then({ v -> setqflist([], 'a', { 'efm': efm, 'lines': v, 'title': title }) })
         \.then({ -> execute('copen') })
 endfunction

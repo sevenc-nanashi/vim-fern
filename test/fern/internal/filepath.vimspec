@@ -202,6 +202,13 @@ Describe fern#internal#filepath
         Assert Equals(got, want)
       End
 
+      It returns a slash separated absolute path ('C:/Windows/System32' -> '/C:/Windows/System32')
+        let path = 'C:/Windows/System32'
+        let want = '/C:/Windows/System32'
+        let got = fern#internal#filepath#to_slash(path)
+        Assert Equals(got, want)
+      End
+
       It returns a slash separated relative path ('Windows\System32' for 'Windows/System32')
         let path = 'Windows\System32'
         let want = 'Windows/System32'
@@ -339,11 +346,20 @@ Describe fern#internal#filepath
         let path = 'C:\Windows\System32'
         Assert False(fern#internal#filepath#is_drive_root(path))
       End
+
+      It returns 1 for 'C:/' (a drive root)
+        let path = 'C:/'
+        Assert True(fern#internal#filepath#is_drive_root(path))
+      End
     End
 
     Describe #is_absolute()
       It returns 1 for 'C:\Windows\System32'
         Assert True(fern#internal#filepath#is_absolute('C:\Windows\System32'))
+      End
+
+      It returns 1 for 'C:/Windows/System32'
+        Assert True(fern#internal#filepath#is_absolute('C:/Windows/System32'))
       End
 
       It returns 1 for 'C:\' (a drive root)

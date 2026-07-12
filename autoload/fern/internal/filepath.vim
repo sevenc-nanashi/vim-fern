@@ -20,7 +20,7 @@ endfunction
 
 function! fern#internal#filepath#is_drive_root(path) abort
   return g:fern#internal#filepath#is_windows
-        \ ? a:path =~# '^\w:\\$'
+        \ ? a:path =~# '^\w:[/\\]$'
         \ : a:path ==# '/'
 endfunction
 
@@ -40,7 +40,7 @@ endfunction
 
 function! s:to_slash_windows(path) abort
   let prefix = s:is_absolute_windows(a:path) ? '/' : ''
-  let terms = filter(split(a:path, '\\'), '!empty(v:val)')
+  let terms = filter(split(a:path, '[/\\]'), '!empty(v:val)')
   return prefix . join(terms, '/')
 endfunction
 
@@ -60,7 +60,7 @@ function! s:from_slash_windows(path) abort
 endfunction
 
 function! s:is_absolute_windows(path) abort
-  return a:path ==# '' || a:path[:2] =~# '^\w:\\$'
+  return a:path ==# '' || a:path[:2] =~# '^\w:[/\\]$'
 endfunction
 
 function! s:is_absolute_unix(path) abort
